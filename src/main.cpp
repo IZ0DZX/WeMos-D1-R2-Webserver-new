@@ -29,7 +29,7 @@ const char* ssid = "zuhause";
 const char* password = "schmitt.obw@web.de";
 char href[15] = "<a href=\"?rel ";
 
-int value = LOW, base = 0x40, Relay1 = 0, onoff1 = 0;
+int value = LOW, base = 0x40, Relay1 = 0;
 byte relayState = 0, keyOld = 0, keyNew = 0, keyPressTime = 0;
 unsigned long starttime, prevTime;
 int state = 0, waitTime = 0, x = 0, end = 0, repeat = 0;
@@ -122,10 +122,9 @@ void loop() {
    Serial.println(index);
  int Relay = request[index + 5];  
  int onoff = request[index + 6];  
-  if ((Relay != Relay1)  || (onoff != onoff1))
+  if (Relay != Relay1)
    {
    Relay1 = Relay;
-   onoff1 = onoff;
    base ^= 0x20;    // XOR toggle Bit
    Relay &= 0x0f;
    Serial.print("Relay = ");
